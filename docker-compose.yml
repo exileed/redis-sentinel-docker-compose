@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  redis1:
+    image: redis:4-alpine
+    ports:
+      - "6379:6379"
+
+  sentinel1:
+    image: redis:4-alpine
+    ports:
+      - "26379:26379"
+    volumes:
+      - ./sentinel/sentinel1.conf:/etc/sentinel.conf
+    command: redis-server /etc/sentinel.conf --sentinel
+
+  redis2:
+    image: redis:4-alpine
+    ports:
+      - "6380:6379"
+
+  sentinel2:
+    image: redis:4-alpine
+    ports:
+      - "26380:26379"
+    volumes:
+      - ./sentinel/sentinel2.conf:/etc/sentine2.conf
+    command: redis-server /etc/sentine2.conf --sentinel
+
+
+  redis3:
+    image: redis:4-alpine
+    ports:
+      - "6381:6379"
+
+  sentinel3:
+    image: redis:4-alpine
+    ports:
+      - "26381:26379"
+    volumes:
+      - ./sentinel/sentinel3.conf:/etc/sentine3.conf
+    command: redis-server /etc/sentine3.conf --sentinel
